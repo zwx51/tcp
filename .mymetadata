@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="tcp"
+  id="myeclipse.1562896622136"
+  context-root="/tcp"
+  j2ee-spec="5.0"
+  archive="tcp.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
