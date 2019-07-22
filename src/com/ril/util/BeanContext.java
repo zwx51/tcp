@@ -4,7 +4,6 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
  
 @Configuration
 public class BeanContext implements ApplicationContextAware {
@@ -24,6 +23,7 @@ public class BeanContext implements ApplicationContextAware {
 		return applicationContext.getBean(name);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static Object getBean(Class c) throws BeansException {
 	    return applicationContext.getBean(c);
 	}

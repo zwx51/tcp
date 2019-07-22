@@ -1,9 +1,13 @@
 package com.ril.mapper;
 
+import java.util.Date;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
 import com.ril.bean.TCPRecord;
 import com.ril.bean.TCPRecordExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface TCPRecordMapper {
     /**
@@ -93,4 +97,11 @@ public interface TCPRecordMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(TCPRecord record);
+    
+    @Select("select (max(count)-min(count)) from[tcprecord] "+
+    		"where noc = #{noc} and machid= #{machid} and "+
+    		"mode= #{mode} and recordtime between #{date1} and #{date2} ")
+    Long getSpeed(@Param("date1")Date date1,@Param("date2")Date date2,
+    		@Param("noc")int noc,@Param("machid")long machid,@Param("mode")int mode);
+    
 }

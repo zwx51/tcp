@@ -21,6 +21,10 @@ public class TCPRecordController extends BaseController{
 	@Autowired
 	TCPRecordService tCPRecordService;
 	
+	
+	/*
+	 * 查询记录
+	 * */
 	@RequestMapping(value ="/listRecord",produces = {"application/json;charset=utf-8"})
 	@ResponseBody
     public List<TCPRecord> listRecord(

@@ -1,10 +1,8 @@
 package com.ril.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +20,9 @@ public class MachineController extends BaseController{
 	@Autowired
 	MachineService machineService;
 	
-	//添加机器
+	/*
+	 * 添加机器
+	 */
 	@RequestMapping(value ="/addMachine",produces = {"application/json;charset=utf-8"})
 	@ResponseBody
     public Object addMachine(Long machid ,String name){
@@ -36,7 +36,9 @@ public class MachineController extends BaseController{
 			return fail("添加数据失败");
     }
 	
-	//删除机器
+	/*
+	 * 删除机器
+	 */
 	@RequestMapping(value ="/deleteMachine",produces = {"application/json;charset=utf-8"})
 	@ResponseBody
     public Object deleteMachine(@RequestParam(value ="machids[]") List<Long> machids){
@@ -56,7 +58,9 @@ public class MachineController extends BaseController{
 		return machineService.getMachine(name,start,end);
 	}
 	
-	//修改机器名称
+	/*
+	 * 修改机器名称
+	 */
 	@RequestMapping(value ="/changeMachineName",produces = {"application/json;charset=utf-8"})
 	@ResponseBody
     public Object changeMachineName(String name , Long machid){
@@ -65,7 +69,9 @@ public class MachineController extends BaseController{
 		else
 			return fail("修改失败");
 	}
-	//修改机器NOC
+	/*
+	 * 修改机器NOC
+	 */
 	@RequestMapping(value ="/changeMachineNOC",produces = {"application/json;charset=utf-8"})
 	@ResponseBody
     public Object changeMachineNOC(Integer noc,Integer value , String date , Long machid){
