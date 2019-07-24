@@ -74,7 +74,7 @@ public class MachineController extends BaseController{
 	 */
 	@RequestMapping(value ="/changeMachineNOC",produces = {"application/json;charset=utf-8"})
 	@ResponseBody
-    public Object changeMachineNOC(Integer noc,Integer value , String date , Long machid){
+    public Object changeMachineNOC(String noc,Integer value , String date , Long machid){
 		if(machineService.changeMachineNOC(noc,machid,value,date))
 		return success("修改成功");
 		else

@@ -11,7 +11,7 @@ public interface MachineService {
 	public Boolean deleteMachine(List<Long> machids);
 	public List<Machine> getMachine(String name, Long start, Long end);
 	public Boolean changeMachineName(String name, Long machid);
-	public Boolean changeMachineNOC(Integer noc, Long machid, Integer value,
+	public Boolean changeMachineNOC(String noc, Long machid, Integer value,
 			String date);
 	public Boolean changeMachineMode(Long machid,Integer mode);
 }

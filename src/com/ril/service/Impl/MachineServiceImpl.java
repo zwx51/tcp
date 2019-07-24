@@ -68,12 +68,11 @@ public class MachineServiceImpl implements MachineService {
 	}
 
 	//变更NOC
-	public Boolean changeMachineNOC(Integer noc, Long machid, Integer value,
+	public Boolean changeMachineNOC(String noc, Long machid, Integer value,
 			String date) {
 		Machine m = machineMapper.selectByPrimaryKey(machid);
 		m.setNoc(noc);
 		m.setValue(value);
-		m.setDate(date);
 		int c = machineMapper.updateByPrimaryKey(m);
 		if(c!=0)
 			return true;

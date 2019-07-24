@@ -385,53 +385,133 @@ public class TCPRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andNocEqualTo(Integer value) {
+        public Criteria andNocEqualTo(String value) {
             addCriterion("noc =", value, "noc");
             return (Criteria) this;
         }
 
-        public Criteria andNocNotEqualTo(Integer value) {
+        public Criteria andNocNotEqualTo(String value) {
             addCriterion("noc <>", value, "noc");
             return (Criteria) this;
         }
 
-        public Criteria andNocGreaterThan(Integer value) {
+        public Criteria andNocGreaterThan(String value) {
             addCriterion("noc >", value, "noc");
             return (Criteria) this;
         }
 
-        public Criteria andNocGreaterThanOrEqualTo(Integer value) {
+        public Criteria andNocGreaterThanOrEqualTo(String value) {
             addCriterion("noc >=", value, "noc");
             return (Criteria) this;
         }
 
-        public Criteria andNocLessThan(Integer value) {
+        public Criteria andNocLessThan(String value) {
             addCriterion("noc <", value, "noc");
             return (Criteria) this;
         }
 
-        public Criteria andNocLessThanOrEqualTo(Integer value) {
+        public Criteria andNocLessThanOrEqualTo(String value) {
             addCriterion("noc <=", value, "noc");
             return (Criteria) this;
         }
 
-        public Criteria andNocIn(List<Integer> values) {
+        public Criteria andNocLike(String value) {
+            addCriterion("noc like", value, "noc");
+            return (Criteria) this;
+        }
+
+        public Criteria andNocNotLike(String value) {
+            addCriterion("noc not like", value, "noc");
+            return (Criteria) this;
+        }
+
+        public Criteria andNocIn(List<String> values) {
             addCriterion("noc in", values, "noc");
             return (Criteria) this;
         }
 
-        public Criteria andNocNotIn(List<Integer> values) {
+        public Criteria andNocNotIn(List<String> values) {
             addCriterion("noc not in", values, "noc");
             return (Criteria) this;
         }
 
-        public Criteria andNocBetween(Integer value1, Integer value2) {
+        public Criteria andNocBetween(String value1, String value2) {
             addCriterion("noc between", value1, value2, "noc");
             return (Criteria) this;
         }
 
-        public Criteria andNocNotBetween(Integer value1, Integer value2) {
+        public Criteria andNocNotBetween(String value1, String value2) {
             addCriterion("noc not between", value1, value2, "noc");
+            return (Criteria) this;
+        }
+
+        public Criteria andStocknumberIsNull() {
+            addCriterion("stockNumber is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStocknumberIsNotNull() {
+            addCriterion("stockNumber is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStocknumberEqualTo(String value) {
+            addCriterion("stockNumber =", value, "stocknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStocknumberNotEqualTo(String value) {
+            addCriterion("stockNumber <>", value, "stocknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStocknumberGreaterThan(String value) {
+            addCriterion("stockNumber >", value, "stocknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStocknumberGreaterThanOrEqualTo(String value) {
+            addCriterion("stockNumber >=", value, "stocknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStocknumberLessThan(String value) {
+            addCriterion("stockNumber <", value, "stocknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStocknumberLessThanOrEqualTo(String value) {
+            addCriterion("stockNumber <=", value, "stocknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStocknumberLike(String value) {
+            addCriterion("stockNumber like", value, "stocknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStocknumberNotLike(String value) {
+            addCriterion("stockNumber not like", value, "stocknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStocknumberIn(List<String> values) {
+            addCriterion("stockNumber in", values, "stocknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStocknumberNotIn(List<String> values) {
+            addCriterion("stockNumber not in", values, "stocknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStocknumberBetween(String value1, String value2) {
+            addCriterion("stockNumber between", value1, value2, "stocknumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStocknumberNotBetween(String value1, String value2) {
+            addCriterion("stockNumber not between", value1, value2, "stocknumber");
             return (Criteria) this;
         }
 

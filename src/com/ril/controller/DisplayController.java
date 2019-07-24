@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ril.service.DisplayService;
+import com.ril.socket.Server;
 
 
 @Controller
@@ -25,7 +26,10 @@ public class DisplayController extends BaseController {
     public List<Map<?,?>> getMachinestatus(String name){
 		return displayService.getMachinestatus(name);
     }
-	
-	
+	@RequestMapping(value ="/listall",produces = {"application/json;charset=utf-8"})
+	@ResponseBody
+    public Map<?,?> getAllStackTraces(String name){
+		return Server.getAllStackTraces();
+    }
 	
 }
