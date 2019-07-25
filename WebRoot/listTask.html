@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>任务列表</title>
+	
+    <meta http-equiv="description" content="listRecord">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+  </head>
+  
+  <body>
+  <h3 id="machid"></h3>
+  <button onclick="window.close();">关闭页面</button>
+  
+  <div style=" border:1px solid #000000; padding:20px 20px 20px 20px;">
+  <h5>添加任务</h5>
+  <label>NOC：</label><input type = "text" id="noc" value=""/>
+  <label>物料编号：</label><input type = "text" id="stocknumber" value=""/>
+  <label>数量：</label><input type = "text" id="value" value=""/>
+  <label>日期：</label><input type = "text" id="date" value="" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
+  <button onclick="add()">添加</button>
+  <br />
+  </div>
+  <div style=" border:1px solid #000000; padding:20px 20px 20px 20px;">
+  <h5>任务管理</h5>
+  <p> </p>
+    <table border="1" cellspacing="0" style="width:100%">
+    <thead><!-- 列表表头 -->
+		<tr>
+		<th style="width:15%">NOC</th>
+		<th style="width:15%">物料编号</th>
+		<th style="width:15%">数量</th>
+		<th style="width:15%">日期</th>
+		<th style="width:15%">排序</th>
+		<th style="width:25%">操作</th>
+		</tr>
+	</thead>
+    <tbody id = "Recordlist">
+    </tbody>
+    </table>
+   </div>
+  </body>
+  <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+  <script type="text/javascript" src="js/dateFormat.js"></script>
+  <script type="text/javascript" src="js/DatePicker/WdatePicker.js"></script>
+  <script type="text/javascript" src="js/request.js"></script>
+  <script>
+  var urlmachid ;
+   window.onload = function () {
+   urlmachid = Request['machid'];
+   $("#machid").html("机器号："+urlmachid)
+   get();
+   }
+   
+  function get(){
+  $.ajax({
+  	url:"task/listEO",
+  	type:"post",
+  	dataType:"json",
+	data:{'machid':Request['machid']},
+  	success:function(data){
+  	var text = "";
+  	  for (var i = 0; i < data.length; i++) {
+		text += "<tr>";
+		text += "<td>";
+		text += data[i].noc;
+		text += "</td>";
+		text += "<td>";
+		text += data[i].stocknumber;
+		text += "</td>";
+		text += "<td>";
+		text += data[i].value;
+		text += "</td>";
+		text += "<td>";
+		text += data[i].date;
+		text += "</td>";
+		text += "<td>";
+		text += data[i].executionorder;
+		text += "</td>";
+		text += "<td>";
+		text += "<button style=\"width:25%\" onclick=\"up(";
+		text += data[i].id;
+		text += ")\" ";
+		if(i==0){
+			text +="disabled=\"disabled\"";
+			}
+		text += ">上移</button>";
+		text += "<button style=\"width:25%\" onclick=\"down(";
+		text += data[i].id;
+		text += ")\" ";
+		if(i==data.length-1){
+			text +="disabled=\"disabled\"";
+			}
+		text += ">下移</button>";
+		text += "<button style=\"width:25%\" onclick=\"totop(";
+		text += data[i].id;
+		text += ")\">置顶</button>"
+		text += "<button style=\"width:25%\" onclick=\"deletetask(";
+		text += data[i].id;
+		text += ")\">删除</button>"
+		text += "</td>";
+		text += "</tr>";
+  	  }
+  	  $("#Recordlist").html(text);
+	}
+  });
+  }
+  
+  function add(){
+  var noc = $("#noc").val();
+  var stocknumber = $("#stocknumber").val();
+  var value = $("#value").val();
+  var date = $("#date").val();
+  $.ajax({
+  	url:"task/add",
+  	type:"post",
+  	dataType:"json",
+	data:{
+		'machid':Request['machid'],
+		'noc':noc,
+		'stocknumber':stocknumber,
+		'value':value,
+		'date':date
+		},
+  	success:function(data){
+  		alert(data.msg);
+  		get();
+	}
+  });
+  
+  }
+  
+   function deletetask(id){
+  $.ajax({
+  	url:"task/delete",
+  	type:"post",
+  	dataType:"json",
+	data:{'id':id},
+  	success:function(data){
+  		alert(data.msg);
+  		get();
+	}
+  });
+  }
+    function up(id){
+  $.ajax({
+  	url:"task/up",
+  	type:"post",
+  	dataType:"json",
+	data:{'id':id},
+  	success:function(data){
+  		get();
+	}
+  });
+  }
+     function down(id){
+  $.ajax({
+  	url:"task/down",
+  	type:"post",
+  	dataType:"json",
+	data:{'id':id},
+  	success:function(data){
+  		get();
+	}
+  });
+  }
+     function totop(id){
+  $.ajax({
+  	url:"task/top",
+  	type:"post",
+  	dataType:"json",
+	data:{'id':id},
+  	success:function(data){
+  		get();
+	}
+  });
+  }
+</script>
+  </html>

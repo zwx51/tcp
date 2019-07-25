@@ -18,6 +18,7 @@ import com.ril.bean.TCPRecord;
 import com.ril.mapper.MachineMapper;
 import com.ril.service.MachineService;
 import com.ril.service.TCPRecordService;
+import com.ril.service.TaskService;
 import com.ril.util.BeanContext;
 
 public class ServerThread extends Thread {
@@ -32,6 +33,7 @@ public class ServerThread extends Thread {
 	//加载Service
 	private TCPRecordService tCPRecordService = (TCPRecordService)BeanContext.getBean(TCPRecordService.class);
 	private MachineService machineService = (MachineService)BeanContext.getBean(MachineService.class);
+	private TaskService taskService = (TaskService)BeanContext.getBean(TaskService.class);
 	private MachineMapper machineMapper = (MachineMapper)BeanContext.getBean(MachineMapper.class);
 	public ServerThread(Socket socket) {
 		this.socket = socket;
@@ -56,10 +58,7 @@ public class ServerThread extends Thread {
 			out = new DataOutputStream(socket.getOutputStream());
 
 			while (flag) {
-				byte[] b = new byte[50];
 				String s ="";
-				
-				
 				while(true){
 					char a =(char)in.readByte();
 				
@@ -116,14 +115,14 @@ public class ServerThread extends Thread {
 					//模式与计数
 					if(mode!=record.getMode()){
 						mode=record.getMode();
-						m.setMode(mode);
-						m.setCount(record.getCount());
-						machineMapper.updateByPrimaryKey(m);
+						m1.setMode(mode);
+						m1.setCount(record.getCount());
+						machineMapper.updateByPrimaryKey(m1);
 					}
 					//计数
 					else{
-						m.setCount(record.getCount());
-						machineMapper.updateByPrimaryKey(m);
+						m1.setCount(record.getCount());
+						machineMapper.updateByPrimaryKey(m1);
 					}
 					
 					
@@ -164,7 +163,8 @@ public class ServerThread extends Thread {
 				
 				
 				else if(s.equals("end")){
-					
+					taskService.next(machid);
+					m=machineService.getMachine(machid);
 				}
 				
 				else {

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ril.bean.Machine;
 import com.ril.bean.TCPRecord;
+import com.ril.bean.TCPRecordExample;
 import com.ril.mapper.MachineMapper;
 import com.ril.mapper.TCPRecordMapper;
 import com.ril.service.TCPRecordService;
@@ -33,6 +34,7 @@ public class TCPRecordServiceImpl implements TCPRecordService {
 			machineMapper.updateByPrimaryKey(m);
 		}
 		record.setNoc(m.getNoc());
+		record.setStocknumber(m.getStocknumber());
 		int c =tCPRecordMapper.insert(record);
 		if(c!=0)
 			return true;
@@ -45,8 +47,10 @@ public class TCPRecordServiceImpl implements TCPRecordService {
 	}
 
 	public List<TCPRecord> listRecord(Date start, Date end, Long machid) {
-		// TODO Auto-generated method stub
-		return null;
+		TCPRecordExample e = new TCPRecordExample();
+		e.createCriteria().andRecordtimeBetween(start, end).andMachidEqualTo(machid);
+
+		return tCPRecordMapper.selectByExample(e);
 	}
 	
 	

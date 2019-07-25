@@ -1,9 +1,12 @@
 package com.ril.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
 import com.ril.bean.Task;
 import com.ril.bean.TaskExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface TaskMapper {
     /**
@@ -93,4 +96,11 @@ public interface TaskMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(Task record);
+    
+    /*
+     * 非自动生成部分
+     * */
+    @Select("select max(executionorder) from [task]"+
+    		"where machid= #{machid} and status=0 ")
+    Integer getMax(@Param("machid")Long machid);
 }

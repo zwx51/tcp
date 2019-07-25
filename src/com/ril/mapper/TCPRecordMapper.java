@@ -97,9 +97,15 @@ public interface TCPRecordMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(TCPRecord record);
-    @Select("select (max(count)-min(count)) from[tcprecord] "+
-    		"where noc = #{noc} and machid= #{machid} and "+
-    		"mode= #{mode} and recordtime between #{date1} and #{date2} ")
-    Long getSpeed(@Param("date1")Date date1,@Param("date2")Date date2,
-    		@Param("noc")String noc,@Param("machid")long machid,@Param("mode")int mode);
+    /*
+     * 非自动生成部分
+     * */
+    @Select("select " +
+    		"((max(count)-min(count))/((DATEDIFF(SECOND,  min(recordtime),max(recordtime))*1.0)/3600))" +
+    		" from[tcprecord] "+
+    		"where noc = #{noc} and stocknumber= #{stocknumber} and machid= #{machid} and "+
+    		"mode= #{mode}")
+    Double getSpeed(@Param("noc")String noc,
+    		@Param("stocknumber")String stocknumber,
+    		@Param("machid")long machid,@Param("mode")int mode);
 }

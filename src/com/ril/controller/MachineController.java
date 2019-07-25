@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ril.bean.Machine;
@@ -14,7 +13,7 @@ import com.ril.service.MachineService;
 
 
 @Controller
-@RequestMapping("/Machine")
+@RequestMapping("/machine")
 public class MachineController extends BaseController{
 	
 	@Autowired
@@ -26,7 +25,7 @@ public class MachineController extends BaseController{
 	@RequestMapping(value ="/addMachine",produces = {"application/json;charset=utf-8"})
 	@ResponseBody
     public Object addMachine(Long machid ,String name){
-		//检查重复
+		//检查是否重复
 		if(machineService.getMachine(machid)!=null){	
 			return fail("机器号已存在");
 		}
@@ -41,21 +40,20 @@ public class MachineController extends BaseController{
 	 */
 	@RequestMapping(value ="/deleteMachine",produces = {"application/json;charset=utf-8"})
 	@ResponseBody
-    public Object deleteMachine(@RequestParam(value ="machids[]") List<Long> machids){
-		if(machineService.deleteMachine(machids))
-			return success("添加成功");
+    public Object deleteMachine(Long machid){
+		if(machineService.deleteMachine(machid))
+			return success("删除成功");
 		else
-			return fail("添加数据失败");
+			return fail("删除失败");
 	}
 	
 	/*
 	 * 查找机器
-	 * @param 机器名 机器号范围
 	 * */
 	@RequestMapping(value ="/selectMachine",produces = {"application/json;charset=utf-8"})
 	@ResponseBody
-    public List<Machine> selectMachine(String name , Long start , Long end){
-		return machineService.getMachine(name,start,end);
+    public List<Machine> selectMachine(String name){
+		return machineService.getMachine(name);
 	}
 	
 	/*
@@ -69,16 +67,6 @@ public class MachineController extends BaseController{
 		else
 			return fail("修改失败");
 	}
-	/*
-	 * 修改机器NOC
-	 */
-	@RequestMapping(value ="/changeMachineNOC",produces = {"application/json;charset=utf-8"})
-	@ResponseBody
-    public Object changeMachineNOC(String noc,Integer value , String date , Long machid){
-		if(machineService.changeMachineNOC(noc,machid,value,date))
-		return success("修改成功");
-		else
-			return fail("修改失败");
-	}
+
 	
 }

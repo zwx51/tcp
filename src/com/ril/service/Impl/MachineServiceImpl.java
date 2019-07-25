@@ -1,6 +1,5 @@
 package com.ril.service.Impl;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +25,12 @@ public class MachineServiceImpl implements MachineService {
 	public Boolean addMachine(Long machid, String name) {
 		Machine m=new Machine();
 		m.setMachid(machid);
-		System.out.println(name);
 		m.setName(name);
+		m.setMode(0);
+		m.setNoc("0");
+		m.setStocknumber("0");
+		m.setValue(0);
+		m.setCount((long)0);
 		int c = machineMapper.insert(m);
 		if(c!=0)
 			return true;
@@ -36,11 +39,9 @@ public class MachineServiceImpl implements MachineService {
 	}
 
 	//删除机器
-	public Boolean deleteMachine(List<Long> machids) {
-		MachineExample e = new MachineExample();
-		e.createCriteria().andMachidIn(machids);
+	public Boolean deleteMachine(Long machid) {
 		
-		int c = machineMapper.deleteByExample(e);
+		int c = machineMapper.deleteByPrimaryKey(machid);
 		if(c!=0)
 			return true;
 		else
@@ -48,11 +49,11 @@ public class MachineServiceImpl implements MachineService {
 	}
 
 	//查询机器
-	public List<Machine> getMachine(String name, Long start, Long end) {
+	public List<Machine> getMachine(String name) {
 		MachineExample e =new MachineExample();
 		e.createCriteria()
-		.andNameLike('%'+name+'%')
-		.andMachidBetween(start, end);
+		.andNameLike('%'+name+'%');
+		e.setOrderByClause(" machid ASC ");
 		return machineMapper.selectByExample(e);
 	}
 
@@ -67,27 +68,6 @@ public class MachineServiceImpl implements MachineService {
 			return false;
 	}
 
-	//变更NOC
-	public Boolean changeMachineNOC(String noc, Long machid, Integer value,
-			String date) {
-		Machine m = machineMapper.selectByPrimaryKey(machid);
-		m.setNoc(noc);
-		m.setValue(value);
-		int c = machineMapper.updateByPrimaryKey(m);
-		if(c!=0)
-			return true;
-		else
-			return false;
-	}
-	//变更模式
-	public Boolean changeMachineMode(Long machid, Integer mode) {
-		Machine m = machineMapper.selectByPrimaryKey(machid);
-		m.setMode(mode);
-		int c = machineMapper.updateByPrimaryKey(m);
-		if(c!=0)
-			return true;
-		else
-			return false;
-	}
+
 
 }

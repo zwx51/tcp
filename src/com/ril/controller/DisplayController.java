@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ril.service.DisplayService;
 import com.ril.socket.Server;
 
-
+/*
+ * 
+ * 用于实时显示的Controller
+ * */
 @Controller
 @RequestMapping("/display")
 public class DisplayController extends BaseController {
@@ -20,16 +23,12 @@ public class DisplayController extends BaseController {
 	DisplayService displayService;
 	
 	
-	//获取机器状态
+	//获取当前连接的机器状态
 	@RequestMapping(value ="/listMachinestatus",produces = {"application/json;charset=utf-8"})
 	@ResponseBody
     public List<Map<?,?>> getMachinestatus(String name){
 		return displayService.getMachinestatus(name);
     }
-	@RequestMapping(value ="/listall",produces = {"application/json;charset=utf-8"})
-	@ResponseBody
-    public Map<?,?> getAllStackTraces(String name){
-		return Server.getAllStackTraces();
-    }
+
 	
 }
