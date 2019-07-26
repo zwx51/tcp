@@ -2,6 +2,7 @@ package com.ril.mapper;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -108,4 +109,18 @@ public interface TCPRecordMapper {
     Double getSpeed(@Param("noc")String noc,
     		@Param("stocknumber")String stocknumber,
     		@Param("machid")long machid,@Param("mode")int mode);
+    
+    @Select("Select max(count)as count, " +
+    		"max(recordtime)as endtime, min(recordtime) as starttime " +
+    		"from [tcprecord] " +
+    		"where mode = #{mode} and noc = #{noc} " +
+    		"and stocknumber = #{stocknumber} and machid = #{machid} " +
+    		"having max(recordtime) between #{endFront} and #{endBack} " +
+    		"and min(recordtime) between #{startFront} and #{startBack}")
+    Map<String,String> selectHistorybyTime(
+    		@Param("noc")String noc,
+    		@Param("stocknumber")String stocknumber,
+    		@Param("machid")long machid,@Param("mode")int mode,
+    		@Param("endFront")Date endFront,@Param("endBack")Date endBack,
+    		@Param("startFront")Date startFront,@Param("startBack")Date startBack);
 }

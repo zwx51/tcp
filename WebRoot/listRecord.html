@@ -11,19 +11,47 @@
   </head>
   
   <body>
-  <div>
-  <input id="startT" name="startTime" value=""  style="width: 80px" type="text" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
-  <label>机器号：</label><input type = "text" id="machid" />
-  <button onclick="get()">查找</button><button onclick="test()">test</button>
+  <button onclick="location.href='index.html'">返回主页</button>
+  <div style=" border:1px solid #000000; padding:20px 20px 20px 20px;">
+  
+  <label for="machid">机器号：</label>
+  <input type = "text" value="" id="machid" />
+  
+  <label for="stocknumber">物料编号：</label>
+  <input type = "text" value="" id="stocknumber" />
+  
+  <label for="noc">NOC：</label>
+  <input type = "text" value="" id="noc" />
+  <br />
+  <label for="startFront">开始时间范围</label>
+  <input id="startFront" name="startFront" value=""  style="width: 150px" type="text" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+  -
+  <input id="startBack" name="startBack" value=""  style="width: 150px" type="text" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+  
+  <label for="endFront">结束时间范围</label>
+  <input id="endFront" name="endFront" value=""  style="width: 150px" type="text" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+  -
+  <input id="endBack" name="endBack" value=""  style="width: 150px" type="text" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+  
+  
+  <button onclick="get()">查找</button>
+  
   </div>
-  <div>
-    <table border="1" cellspacing="0">
+  <div style=" border:1px solid #000000; padding:20px 20px 20px 20px;">
+  <h5>查询结果</h5>
+    <table border="1" cellspacing="0" style="width:100%">
     <thead><!-- 列表表头 -->
 		<tr>
 		<th>机器号</th>
-		<th>模式</th>
-		<th>计数</th>
-		<th>时间</th>
+		<th>机器名</th>
+		<th>NOC</th>
+		<th>物料编号</th>
+		<th>工作模式</th>
+		<th>开始</th>
+		<th>结束</th>
+		<th>订单数量</th>
+		<th>实际产量</th>
+		<th>平均产能</th>
 		</tr>
 	</thead>
     <tbody id = "Recordlist">
@@ -37,11 +65,25 @@
   <script>
   function get(){
   var machid=$("#machid").val() ;
+  var stocknumber=$("#stocknumber").val() ;
+  var noc=$("#noc").val() ;
+  var startFront=$("#startFront").val() ;
+  var endFront=$("#endFront").val() ;
+  var startBack=$("#startBack").val() ;
+  var endBack=$("#endBack").val() ;
   $.ajax({
-  	url:"tcprecord/listRecord",
+  	url:"tcprecord/listHistory",
   	type:"post",
   	dataType:"json",
-	data:{'machid':machid},
+	data:{
+		'strstartFront':startFront,
+    	'strendFront':endFront,
+		'strstartBack':startBack,
+		'strendBack':endBack,
+		'machid':machid, 
+		'stocknumber':stocknumber,
+		'noc':noc
+	},
   	success:function(data){
   	var text = "";
   	  for (var i = 0; i < data.length; i++) {
@@ -50,13 +92,31 @@
 		text += data[i].machid;
 		text += "</td>";
 		text += "<td>";
+		text += data[i].name;
+		text += "</td>";
+		text += "<td>";
+		text += data[i].noc;
+		text += "</td>";
+		text += "<td>";
+		text += data[i].stocknumber;
+		text += "</td>";
+		text += "<td>";
 		text += data[i].mode;
+		text += "</td>";
+		text += "<td>";
+		text += new Date(data[i].starttime).Format("yyyy-MM-dd HH:mm:ss")
+		text += "</td>";
+		text += "<td>";
+		text += new Date(data[i].endtime).Format("yyyy-MM-dd HH:mm:ss")
+		text += "</td>";
+		text += "<td>";
+		text += data[i].value;
 		text += "</td>";
 		text += "<td>";
 		text += data[i].count;
 		text += "</td>";
 		text += "<td>";
-		text += new Date(data[i].datetime).Format("yyyy-MM-dd HH:mm:ss");
+		text += data[i].speed;
 		text += "</td>";
 		text += "</tr>";
   	  }
@@ -64,16 +124,6 @@
 	}
   });
   }
-  function test(){
-  $.ajax({
-  	url:"Machine/changeMachineNOC",
-  	type:"post",
-  	dataType:"json",
-	data:{'noc':'344523','value':'5000','date':'2018-01-01','machid':'1'},
-  	success:function(data){
-  		
-	}
-  });
-  }
+
 	</script>
   </html>

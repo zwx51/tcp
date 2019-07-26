@@ -39,7 +39,7 @@ public class ServerThread extends Thread {
 		this.socket = socket;
 		try {
 			//超时时间180秒
-			this.socket.setSoTimeout(180000);
+			this.socket.setSoTimeout(10000);
 		} catch (SocketException e) {
 			e.printStackTrace();
 		}
@@ -54,11 +54,13 @@ public class ServerThread extends Thread {
 			DataInputStream in = null;			//输入流
 			DataOutputStream out = null; 		//输出流
 
+			
 			in = new DataInputStream(socket.getInputStream());
 			out = new DataOutputStream(socket.getOutputStream());
 
 			while (flag) {
 				String s ="";
+				try{
 				while(true){
 					char a =(char)in.readByte();
 				
@@ -67,7 +69,11 @@ public class ServerThread extends Thread {
 						break;
 					s+=a;
 				}
-				
+				}catch (SocketTimeoutException e) {
+					// 超时检测是否机器是否还在
+					out.write('z');
+					s="";
+				}
 				//跳过空字符
 				if(s.equals(""))
 					continue;
@@ -178,11 +184,7 @@ public class ServerThread extends Thread {
 			e.getMessage().equals(
 					"Software caused connection abort: socket write error");
 
-		} catch (SocketTimeoutException e) {
-			// 超时
-			System.out.println(socket.getRemoteSocketAddress() + "连接超时");
-
-		} catch (IOException e) {
+		}catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println(socket.getRemoteSocketAddress() + "IO错误");
 			e.printStackTrace();

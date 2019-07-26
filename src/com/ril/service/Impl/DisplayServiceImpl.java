@@ -2,8 +2,7 @@ package com.ril.service.Impl;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +36,7 @@ public class DisplayServiceImpl implements DisplayService {
 		}
 		List<Map<?,?>> list = new ArrayList<Map<?,?>>();
 		for(Long machid:set){
-			System.out.println(machid);
+
 			Map<String,String> map = new HashMap<String,String>();
 			Machine m = machineMapper.selectByPrimaryKey(machid);
 			if(null==m){
@@ -53,7 +52,7 @@ public class DisplayServiceImpl implements DisplayService {
 			
 			Double speed=(double)0;
 			DecimalFormat df = new DecimalFormat( "0.00");  
-			System.out.println(speed);
+
 			if(!m.getNoc().equals(0)){
 				speed=tCPRecordMapper.getSpeed(m.getNoc(), m.getStocknumber(), m.getMachid(), 4);
 

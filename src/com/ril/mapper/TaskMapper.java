@@ -103,4 +103,15 @@ public interface TaskMapper {
     @Select("select max(executionorder) from [task]"+
     		"where machid= #{machid} and status=0 ")
     Integer getMax(@Param("machid")Long machid);
+    
+
+    @Select("select * from [task] " +
+    		"where machid like '%${machid}%' " +
+    		"and stocknumber like '%${stocknumber}%' " +
+    		"and noc like '%${noc}%' " +
+    		"and status=1"
+    		)
+    List<Task> selectTask(@Param("machid")Long machid,
+    		@Param("stocknumber")String stocknumber,
+    		@Param("noc")String noc);
 }

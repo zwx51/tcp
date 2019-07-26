@@ -3,9 +3,7 @@ package com.ril.listener;
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletContextEvent;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ril.service.TCPRecordService;
 import com.ril.socket.Server;
 
 /*
