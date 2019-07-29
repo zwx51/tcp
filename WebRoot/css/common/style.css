@@ -1,0 +1,23 @@
+@CHARSET "UTF-8";
+.card {
+	background:#FFFFFF; 
+	border:1px solid #d0d0d5; 
+	border-radius:5px;
+	padding:20px 20px 20px 20px;
+	margin-top:10px;
+	}
+	
+.menu {
+	margin:auto;
+	width:180px;
+	}
+	
+.menudiv{
+	margin:5px auto;
+	width:180px;
+	display:block;
+	}
+	
+.menubutton{
+	display:block;
+	}

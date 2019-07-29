@@ -5,18 +5,21 @@
 	
     <meta http-equiv="description" content="listRecord">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    
+    <link rel="stylesheet" href="css/common/ui.css">
+    <link rel="stylesheet" href="css/common/style.css">
     <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
 
   </head>
   
-  <body>
-  <button onclick="location.href='index.html'">返回主页</button>
-
-  <div style=" border:1px solid #000000; padding:20px 20px 20px 20px;">
+  <body bgcolor="#F5F6F7">
+  <!-- <button onclick="location.href='index.html'">返回主页</button>-->
+  <a href="index.html" class="ui-button" >返回主页</a>
+  
+  <div class="card">
   <h5>运行中的机器</h5>
 
-    <table border="1" cellspacing="0" style="width:100%">
+    <!--  <table border="1" cellspacing="0" style="width:100%">-->
+    <table class="ui-table">
     <thead><!-- 列表表头 -->
 		<tr>
 		<th style="width:12.5%">机器号</th>
@@ -90,6 +93,9 @@
 				break;
 			case 6:
 				text += "暂停";
+				break;
+			default:
+				text += "暂无记录";
 				break;
 				}
 			text += "</td>";

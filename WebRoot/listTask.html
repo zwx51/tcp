@@ -5,28 +5,30 @@
 	
     <meta http-equiv="description" content="listRecord">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    
+    <link rel="stylesheet" href="css/common/ui.css">
+    <link rel="stylesheet" href="css/common/style.css">
     <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
 
   </head>
   
-  <body>
+  <body bgcolor="#F5F6F7">
+
+  <!-- <button onclick="window.close();">关闭页面</button>-->
+  <a href="javascript:window.close()" class="ui-button" >关闭页面</a>
+  <div class="card">
   <h3 id="machid"></h3>
-  <button onclick="window.close();">关闭页面</button>
-  
-  <div style=" border:1px solid #000000; padding:20px 20px 20px 20px;">
   <h5>添加任务</h5>
   <label>NOC：</label><input type = "text" id="noc" value=""/>
   <label>物料编号：</label><input type = "text" id="stocknumber" value=""/>
   <label>数量：</label><input type = "text" id="value" value=""/>
   <label>日期：</label><input type = "text" id="date" value="" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
-  <button onclick="add()">添加</button>
+  <button onclick="add()" class="ui-button">添加</button>
   <br />
   </div>
-  <div style=" border:1px solid #000000; padding:20px 20px 20px 20px;">
+  <div class="card">
   <h5>任务管理</h5>
   <p> </p>
-    <table border="1" cellspacing="0" style="width:100%">
+    <table class="ui-table">
     <thead><!-- 列表表头 -->
 		<tr>
 		<th style="width:15%">NOC</th>
@@ -34,7 +36,7 @@
 		<th style="width:15%">数量</th>
 		<th style="width:15%">日期</th>
 		<th style="width:15%">排序</th>
-		<th style="width:25%">操作</th>
+		<th style="width:25%">排序</th>
 		</tr>
 	</thead>
     <tbody id = "Recordlist">
@@ -46,6 +48,7 @@
   <script type="text/javascript" src="js/dateFormat.js"></script>
   <script type="text/javascript" src="js/DatePicker/WdatePicker.js"></script>
   <script type="text/javascript" src="js/request.js"></script>
+  
   <script>
   var urlmachid ;
    window.onload = function () {
@@ -80,24 +83,24 @@
 		text += data[i].executionorder;
 		text += "</td>";
 		text += "<td>";
-		text += "<button style=\"width:25%\" onclick=\"up(";
+		text += "<button class=\"ui-button\"  onclick=\"up(";
 		text += data[i].id;
 		text += ")\" ";
 		if(i==0){
 			text +="disabled=\"disabled\"";
 			}
 		text += ">上移</button>";
-		text += "<button style=\"width:25%\" onclick=\"down(";
+		text += "<button class=\"ui-button\"  onclick=\"down(";
 		text += data[i].id;
 		text += ")\" ";
 		if(i==data.length-1){
 			text +="disabled=\"disabled\"";
 			}
 		text += ">下移</button>";
-		text += "<button style=\"width:25%\" onclick=\"totop(";
+		text += "<button class=\"ui-button\"  onclick=\"totop(";
 		text += data[i].id;
 		text += ")\">置顶</button>"
-		text += "<button style=\"width:25%\" onclick=\"deletetask(";
+		text += "<button class=\"ui-button ui-button-warning\"  onclick=\"deletetask(";
 		text += data[i].id;
 		text += ")\">删除</button>"
 		text += "</td>";

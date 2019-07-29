@@ -55,8 +55,11 @@ public class TCPRecordServiceImpl implements TCPRecordService {
 
 	public List<TCPRecord> listRecord(Date start, Date end, Long machid) {
 		TCPRecordExample e = new TCPRecordExample();
-		e.createCriteria().andRecordtimeBetween(start, end).andMachidEqualTo(machid);
-
+		if(machid==0){
+			e.createCriteria().andRecordtimeBetween(start, end);
+		}else{
+			e.createCriteria().andRecordtimeBetween(start, end).andMachidEqualTo(machid);
+		}
 		return tCPRecordMapper.selectByExample(e);
 	}
 

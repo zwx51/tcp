@@ -5,32 +5,37 @@
 	
     <meta http-equiv="description" content="listRecord">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    
+    <link rel="stylesheet" href="css/common/ui.css">
+    <link rel="stylesheet" href="css/common/style.css">
     <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
 
   </head>
   
-  <body>
-  <button onclick="location.href='index.html'">返回主页</button>
-  <div style=" border:1px solid #000000; padding:20px 20px 20px 20px;">
+  <body bgcolor="#F5F6F7">
+  <!--  <button onclick="location.href='index.html'">返回主页</button>-->
+   <a href="index.html" class="ui-button">返回主页</a>
+  <div class="card">
+  <h4>查看机器记录</h4>
+  <span class="ui-input">
   <label>机器号：</label><input type = "text" id="machid" />
     <label for="Front">时间范围</label>
   <input id="Front" name="Front" value=""  style="width: 150px" type="text" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
   -
   <input id="Back" name="Back" value=""  style="width: 150px" type="text" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
-  
-  <button onclick="get()">查找</button>
+  </span>
+  <button onclick="get()" class="ui-button">查找</button>
   </div>
-  <div  style=" border:1px solid #000000; padding:20px 20px 20px 20px;">
-    <table  border="1" cellspacing="0" style="width:100%">
+  <div class="card">
+    <h4>查询结果</h4>
+    <table class="ui-table">
     <thead><!-- 列表表头 -->
 		<tr>
-		<th>机器号</th>
-		<th>模式</th>
-		<th>NOC</th>
-		<th>物料编号</th>
-		<th>计数</th>
-		<th>记录时间</th>
+			<th>机器号</th>
+			<th>模式</th>
+			<th>NOC</th>
+			<th>物料编号</th>
+			<th>计数</th>
+			<th>记录时间</th>
 		</tr>
 	</thead>
     <tbody id = "Recordlist">
@@ -44,11 +49,17 @@
   <script>
   function get(){
   var machid=$("#machid").val() ;
+  var front =$("#Front").val();
+  var back =$("#Back").val();
   $.ajax({
   	url:"tcprecord/listRecord",
   	type:"post",
   	dataType:"json",
-	data:{'machid':machid},
+	data:{
+		'machid':machid,
+		'front':front,
+		'back':back
+			},
   	success:function(data){
   	var text = "";
   	  for (var i = 0; i < data.length; i++) {
@@ -75,6 +86,9 @@
 				break;
 			case 6:
 				text += "暂停";
+				break;
+			default:
+				text += "暂无记录";
 				break;
 				}
 		text += "</td>";

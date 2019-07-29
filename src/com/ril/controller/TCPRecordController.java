@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,6 +32,13 @@ public class TCPRecordController extends BaseController{
 	@ResponseBody
     public List<TCPRecord> listRecord(String front,String back,Long machid){
 		Date start=null,end=null;
+		Long id;
+		if(machid==null){
+			id=(long)0;
+		}
+		else{
+			id=machid;
+		}
 		if(null==front||front.equals("")){
 			front="1980-01-01 01:01:01";
 		}
@@ -46,7 +52,7 @@ public class TCPRecordController extends BaseController{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return tCPRecordService.listRecord(start,end,machid);
+		return tCPRecordService.listRecord(start,end,id);
     }
 	
 	@RequestMapping(value ="/listHistory",produces = {"application/json;charset=utf-8"})

@@ -5,15 +5,18 @@
 	
     <meta http-equiv="description" content="listRecord">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    
+    <link rel="stylesheet" href="css/common/ui.css">
+    <link rel="stylesheet" href="css/common/style.css">
     <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
 
   </head>
   
-  <body>
-  <button onclick="location.href='index.html'">返回主页</button>
-  <div style=" border:1px solid #000000; padding:20px 20px 20px 20px;">
-  
+  <body bgcolor="#F5F6F7">
+  <!--  <button onclick="location.href='index.html'">返回主页</button>-->
+   <a href="index.html" class="ui-button">返回主页</a>
+  <div class="card">
+  <h4>查询机器记录</h4>
+  <span class="ui-input">
   <label for="machid">机器号：</label>
   <input type = "text" value="" id="machid" />
   
@@ -33,13 +36,14 @@
   -
   <input id="endBack" name="endBack" value=""  style="width: 150px" type="text" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
   
-  
-  <button onclick="get()">查找</button>
-  
+  </span>
+
+  <button onclick="get()" class="ui-button">查找</button>
+
   </div>
-  <div style=" border:1px solid #000000; padding:20px 20px 20px 20px;">
-  <h5>查询结果</h5>
-    <table border="1" cellspacing="0" style="width:100%">
+  <div class="card">
+  <h4>查询结果</h4>
+    <table  class="ui-table">
     <thead><!-- 列表表头 -->
 		<tr>
 		<th>机器号</th>

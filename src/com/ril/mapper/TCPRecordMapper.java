@@ -102,13 +102,14 @@ public interface TCPRecordMapper {
      * 非自动生成部分
      * */
     @Select("select " +
-    		"((max(count)-min(count))/((DATEDIFF(SECOND,  min(recordtime),max(recordtime))*1.0)/3600))" +
+    		"((max(count)-min(count))/NULLIF(((DATEDIFF(SECOND,  min(recordtime),max(recordtime))*1.0)/3600),0))" +
     		" from[tcprecord] "+
     		"where noc = #{noc} and stocknumber= #{stocknumber} and machid= #{machid} and "+
     		"mode= #{mode}")
     Double getSpeed(@Param("noc")String noc,
     		@Param("stocknumber")String stocknumber,
     		@Param("machid")long machid,@Param("mode")int mode);
+    
     
     @Select("Select max(count)as count, " +
     		"max(recordtime)as endtime, min(recordtime) as starttime " +
